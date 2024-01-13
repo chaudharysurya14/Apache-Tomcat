@@ -1,0 +1,76 @@
+==================================================================================================================================
+=============== DATE-24.11.2022 =======================================================
+
+
+INSTALL TOMCAT ON BY WINDOW OS AND HOST WEBSUITE IT.
+-----------------------------------------------------------------------------
+CREATE A INSTANCE 
+	-Go to EC2 and click 'launch instance'
+	-create a instance wih choose window OS
+	-create '.pem' key pair and choose
+	-allow HTTP port
+	-click 'create instance'(instance created) 
+
+	FOR CONNECT ON VIRTUAL MACHINE
+	-choose instance which you created and click on connect
+	-go to RDP client and download remote desktop file
+	-click on 'get password'
+	-upload your key pair (file.pem)  and click 'decrypt password'(password generated)
+	-copy password and go to download path in file manager
+	-click 'instance for window' file
+	-click connect and paste password
+	-click 'yes'(now you are on virtual machine)
+	
+	INSTALL JAVA  AND APACHE TOMCAT
+	-Go to browser on virtual machine 
+	-Download java and install 
+	-Download apache tomcat and install
+	-click next
+	-click 'i agree'
+	-change normal to full and click next
+	-set user name and password and click next
+	-click 'next'
+	-click 'install'
+	-click 'finish'(apache tomcat installed)
+
+	LOGIN TOMCAT ON BROWSER
+	-type'localhost:8080' and click enter(now you you are on tomcat browser)
+	
+	FOR DEPLOY ANY FILE
+	-Go to 'manager app ' on tomcat webpage
+	-ENter 'username' and 'password' (now you are on Tomcat Web Application Manager)
+	-scroll down and go on 'war file to deploy'
+	-choose your '.war' file and click deploy(your war file deployed)
+	
+	FOR SAW YOUR DEPLOY FILE
+	-go to appliction section and click on your file
+
+FOR HOST YOUR OWN WEBPAGE
+	-Go to the virtual machine and create your HTML file
+	-create a folder in webapps in tomcat(Ex:-C:\Program Files\Apache Software Foundation\Tomcat 10.0_Tomcat-10\webapps)
+	-Go to created folder and paste HTML file
+	-Go to conf in apache tomcat(Ex:-C:\Program Files\Apache Software Foundation\Tomcat 10.0_Tomcat-10\conf)
+	-Go to server.xml file and set path in last like this
+       <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+      <Host name="localhost"  appBase="webapps/surya"
+            unpackWARs="true" autoDeploy="true">
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+	:-save the file and go on the browser
+	:-tpye 'localhost:8080/your folder name'(your web page hosted)
+
+
+
+
+
+
+
