@@ -1,0 +1,48 @@
+   How to setup Tomcat to support SSL or https?
+***************************************************
+
+Prerequisite :
+**************
+1)JDK installed + JAVA_HOME environment variable setup
+
+2) Tomcat 8.0 archieve file
+______________________________________________________________
+Now open cmd :
+  run this command:
+  cd %JAVA_HOME%/bin
+______________________________________________________________
+Step 1: Generating keystore file : .keystore
+*********************************  
+keytool -genkey -alias tomcat -keyalg RSA
+
+and save entered password : password1
+______________________________________________________________
+
+Step 2: Now we will configure tomcat for using keystore file and -SSL config
+**********************************************
+
+-->now open server.xml file  and replace following :
+
+<Connector SSLEnabled="true" acceptCount="100" clientAuth="false"
+    disableUploadTimeout="true" enableLookups="false" maxThreads="25"
+    port="8443" keystoreFile="/Users/.keystore" keystorePass="password"
+    protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https"
+    secure="true" sslProtocol="TLS" />
+______________________________________________________________
+
+Step 3: Now we will configure our web app to run on 
+https.
+******************************************************
+-->open web.xml of web application.
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>securedapp</web-resource-name>
+        <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+______________________________________________________________
+Step 4: Test Run 
